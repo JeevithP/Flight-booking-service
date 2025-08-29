@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 
 const { ServerConfig } = require('./config');
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRoutes);
 
 app.listen(ServerConfig.PORT, () => {
+    // console.log(ServerConfig)
     console.log(`Successfully started the server on PORT : ${ServerConfig.PORT}`);
     // CRONS.scheduleCrons();
 });

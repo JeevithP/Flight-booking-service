@@ -7,7 +7,7 @@ async function createBooking(req, res) {
         // console.log('Request body:', req.body);
         const booking = await BookingService.createBooking({
             flightId:req.body.flightId,
-            userId:req.body.userId,
+            userId:req.user.id,
             noOfSeats:req.body.noOfSeats,
         });
         // console.log('Booking created:', booking);
@@ -24,7 +24,7 @@ async function makePayment(req, res) {
         // console.log('Request body:', req.body);
         const booking = await BookingService.makePayment({
             totalCost:req.body.totalCost,
-            userId:req.body.userId,
+            userId:req.user.id,
             bookingId:req.body.bookingId,
         });
         // console.log('Booking created:', booking);

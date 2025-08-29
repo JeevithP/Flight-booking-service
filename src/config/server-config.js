@@ -1,8 +1,6 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 module.exports = {
-    PORT: process.env.PORT,
-    FLIGHT_SERVICE: process.env.FLIGHT_SERVICE,
+    PORT: 4000,
+    FLIGHT_SERVICE: 'http://localhost:3000',
+    JWT_SECRET: 'djvfchjazcnnygb'
 }
