@@ -1,6 +1,6 @@
 
 module.exports = {
-    PORT: 4000,
-    FLIGHT_SERVICE: 'http://localhost:3000',
-    JWT_SECRET: 'djvfchjazcnnygb'
+    PORT: any_port_number,
+    FLIGHT_SERVICE: base_url_of_search_service,
+    JWT_SECRET: any_key
 }
