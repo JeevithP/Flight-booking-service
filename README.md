@@ -1,48 +1,140 @@
-This is a base node js project template, which anyone can use as it has been prepared, by keeping some of the most important code principles and project management recommendations. Feel free to change anything. 
+# ✈️ Flight Booking Service
+
+A microservice responsible for handling bookings, user authentication, payments, and seat management in a distributed flight booking system.
+
+---
+
+## 📌 Overview
+
+This service is part of a microservices-based Flight Booking System. It manages the booking lifecycle, user registration/login, payment status, and communicates with the Flight Service to sync seat availability.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Node.js** with **Express.js**
+- **MySQL** & **Sequelize ORM**
+- **JWT** for user authentication
+- **Winston** for logging
+- **node-cron** for scheduled tasks
+- **Axios** for inter-service HTTP communication
+
+---
+
+## 🧩 Architecture
+
+```
+Flight Booking Service
+├── controllers/    # Handle HTTP requests and responses
+├── services/       # Business logic
+├── repositories/   # Database access
+├── models/         # Sequelize models
+├── config/         # Configuration files
+├── routes/         # API route definitions
+├── middlewares/    # Auth, validation, error handling
+└── utils/          # Helpers, error classes, cron jobs
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo>.git
+   cd <your-repo>
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+
+   Create a `.env` file in the root directory:
+   ```
+   PORT=4000
+   DB_NAME=booking_db
+   DB_USER=root
+   DB_PASS=yourpassword
+   DB_HOST=localhost
+   FLIGHT_SERVICE=http://localhost:3000
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. **Initialize Sequelize (if not already)**
+   ```bash
+   npx sequelize init
+   ```
+
+5. **Run DB migrations**
+   ```bash
+   npx sequelize db:migrate
+   ```
+
+6. **Start the server**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🔁 API Endpoints
+
+| Method | Route                       | Description                    |
+|--------|-----------------------------|--------------------------------|
+| POST   | `/api/v1/users/register`    | Register a new user            |
+| POST   | `/api/v1/users/login`       | Login and receive JWT token    |
+| POST   | `/api/v1/users/logout`      | Logout (clear JWT cookie)      |
+| POST   | `/api/v1/bookings`          | Create a booking (auth needed) |
+| POST   | `/api/v1/bookings/payments` | Make payment for booking       |
+| GET    | `/api/v1/bookings/:id`      | Get booking details            |
+| PATCH  | `/api/v1/bookings/:id`      | Update booking status          |
+| DELETE | `/api/v1/bookings/:id`      | Cancel a booking               |
+
+---
+
+## 🔒 Authentication
+
+- **JWT-based authentication** for all booking-related endpoints.
+- Only authenticated users can create, pay for, or cancel bookings.
+- Registration and login endpoints are public.
+
+---
+
+## ⏱️ Cron Jobs
+
+- Periodically cancels unpaid bookings older than a set threshold (e.g., 15 minutes).
+- Frees up locked seats for other users.
+
+---
+
+## 🔗 Inter-service Communication
+
+- Communicates with the **Flight Service** via REST APIs to:
+  - Check seat availability
+  - Lock seats during booking
+  - Release seats on cancellation
+
+---
+
+## 📝 Project Principles
+
+- Separation of concerns: clear distinction between controllers, services, repositories, and models.
+- Secure password storage using bcrypt.
+- Stateless authentication using JWT.
+- Scalable and maintainable codebase.
+
+---
+
+## 🚀 Future Enhancements
+
+- Add refresh tokens for improved security.
+- Integrate RabbitMQ for async communication.
+- Add unit and integration tests.
+
+---
 
 
-`src` -> Inside the src folder all the actual source code regarding the project will reside, this will not include any kind of tests. (You might want to make separate tests folder)
-
-Lets take a look inside the `src` folder
-
- - `config` -> In this folder anything and everything regarding any configurations or setup of a library or module will be done. For example: setting up `dotenv` so that we can use the environment variables anywhere in a cleaner fashion, this is done in the `server-config.js`. One more example can be to setup you logging library that can help you to prepare meaningful logs, so configuration for this library should also be done here. 
-
- - `routes` -> In the routes folder, we register a route and the corresponding middleware and controllers to it. 
-
- - `middlewares` -> they are just going to intercept the incoming requests where we can write our validators, authenticators etc. 
-
- - `controllers` -> they are kind of the last middlewares as post them you call you business layer to execute the budiness logic. In controllers we just receive the incoming requests and data and then pass it to the business layer, and once business layer returns an output, we structure the API response in controllers and send the output. 
-
- - `repositories` -> this folder contains all the logic using which we interact the DB by writing queries, all the raw queries or ORM queries will go here.
-
- - `services` -> contains the buiness logic and interacts with repositories for data from the database
-
- - `utils` -> contains helper methods, error classes etc.
-
-### Setup the project
-
- - Download this template from github and open it in your favourite text editor. 
- - Go inside the folder path and execute the following command:
-  ```
-  npm install
-  ```
- - In the root directory create a `.env` file and add the following env variables
-    ```
-        PORT=<port number of your choice>
-    ```
-    ex: 
-    ```
-        PORT=3000
-    ```
- - go inside the `src` folder and execute the following command:
-    ```
-      npx sequelize init
-    ```
- - By executing the above command you will get migrations and seeders folder along with a config.json inside the config folder. 
- - If you're setting up your development environment, then write the username of your db, password of your db and in dialect mention whatever db you are using for ex: mysql, mariadb etc
- - If you're setting up test or prod environment, make sure you also replace the host with the hosted db url.
-
- - To run the server execute
- ```
- npm run dev
- ```
+## 👤 Author
